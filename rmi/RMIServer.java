@@ -41,7 +41,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 						}
 					}
 					System.out.println("Number of missing messages: " + missing);
+		}
 	}
+
 
 
 	public static void main(String[] args) {
@@ -49,7 +51,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		RMIServer rmis = null;
 
 		// TO-DO: Initialise Security Manager
-		if (System.getSecurityManager() = null){
+		if (System.getSecurityManager() == null){
 			System.setSecurityManager(new SecurityManager());
 		}
 
@@ -76,7 +78,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			LocateRegistry.createRegistry(1099);
 		}
 		catch(RemoteException rmt_excp){
-			System.out.println("Failed to initialise registry due to remote exception!")
+			System.out.println("Failed to initialise registry due to remote exception!");
 			System.exit(-1);
 		}
 		// TO-DO:
