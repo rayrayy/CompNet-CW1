@@ -11,9 +11,18 @@ For each case you will have to write a simple client that passes a speciﬁed nu
 
 When the clients and servers for each communication mechanism are working, run some experiments on 2 computers in different parts of the lab (i.e., not physically near each other), sending increasing numbers of messages (e.g., from 20-100 with increments of 20, then, 200, 300 and 400) and identify the situations in which messages are lost.
 
-Do not send more than about 2000 messages as otherwise you may overload the lab network. You should hand in the following as hardcopy and in electronic form: 1. A short summary (no more than 1 page) describing your ﬁndings from running the programs. You should address the following points: (a) For each mechanism, what are possible causes, if any, of messages being lost? (b) Are there any patterns in the way messages are lost? (c) What is the relative reliability of the different communication mechanisms? (d) Which was easier to program and why?
+Do not send more than about 2000 messages as otherwise you may overload the lab network. You should hand in the following as hardcopy and in electronic form: 
 
-2. Proof that the both RMI and UDP programs actually ran, e.g. console logs or screen dump plus an indication of which message numbers, if any, were lost. 3. A well formatted listing of the completed code for the 4 classes (2 client server pairs) which is easy to read. Start each of the 4 classes on a new page and avoid very long lines (i.e. <70 characters). Your solutions should deal with exceptions appropriately.
+1. A short summary (no more than 1 page) describing your ﬁndings from running the programs. You should address the following points: 
+  (a) For each mechanism, what are possible causes, if any, of messages being lost? 
+  (b) Are there any patterns in the way messages are lost? 
+  (c) What is the relative reliability of the different communication mechanisms? 
+  (d) Which was easier to program and why?
+
+2. Proof that the both RMI and UDP programs actually ran, e.g. console logs or screen dump plus an indication of which message numbers, if any, were lost. 
+
+3. A well formatted listing of the completed code for the 4 classes (2 client server pairs) which is easy to read. Start each of the 4 classes on a new page and avoid very long lines (i.e. <70 characters). Your solutions should deal with exceptions appropriately.
+
 
 Please provide program listings in the following order:
 
