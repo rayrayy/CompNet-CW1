@@ -23,12 +23,24 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
+		if (receivedMessages == null){
+			totalMessages = msg.totalMessages;
+			receivedMessages = new int[msg.totalMessages];
+		}
 
 		// TO-DO: Log receipt of the message
+		receivedMessages[msg.messageNum] = 1;
 
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
-
+		if (msg.messageNum + 1 == receivedMessages.length) {	//when last message is being received
+					int missing = 0;
+					for (int i=0; i < totalMessages; i++) {
+						if (receivedMessages[i] != 1) {
+							missing++;
+						}
+					}
+					System.out.println("Number of missing messages: " + missing);
 	}
 
 
@@ -37,10 +49,21 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		RMIServer rmis = null;
 
 		// TO-DO: Initialise Security Manager
+		if (System.getSecurityManager() = null){
+			System.setSecurityManager(new SecurityManager());
+		}
 
 		// TO-DO: Instantiate the server class
-
+		try{
+			rmis = new RMIServer();
+		}
+		catch (RemoteException rmt_excp){
+			System.out.println("Failed to instantiate server class due to remote exception!");
+			System.exit(-1);
+		}
 		// TO-DO: Bind to RMI registry
+		rebindServer("RMIServer", rmis);
+		System.out.println("Rebinding server.");
 
 	}
 
@@ -49,10 +72,26 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO:
 		// Start / find the registry (hint use LocateRegistry.createRegistry(...)
 		// If we *know* the registry is running we could skip this (eg run rmiregistry in the start script)
-
+		try{
+			LocateRegistry.createRegistry(1099);
+		}
+		catch(RemoteException rmt_excp){
+			System.out.println("Failed to initialise registry due to remote exception!")
+			System.exit(-1);
+		}
 		// TO-DO:
 		// Now rebind the server to the registry (rebind replaces any existing servers bound to the serverURL)
 		// Note - Registry.rebind (as returned by createRegistry / getRegistry) does something similar but
 		// expects different things from the URL field.
+		try{ Naming.rebind(serverURL, server);
+		}
+		catch(RemoteException rmt_excp){
+			System.out.println("Failed to bind server!");
+			System.exit(-1);
+		}
+		catch(MalformedURLException MUE){
+			System.out.println("Failed to bind server due to malformed URL!");
+			System.exit(-1);
+		}
 	}
 }

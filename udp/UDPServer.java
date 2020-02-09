@@ -76,13 +76,13 @@ public class UDPServer {
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
 		if (msg.messageNum + 1 == receivedMessages.length) {	//when last message is being received
-					int lost_packets = 0;
+					int missing = 0;
 					for (int i=0; i < totalMessages; i++) {
 						if (receivedMessages[i] != 1) {
-							lost_packets++;
+							missing++;
 						}
 					}
-					System.out.println("Number of lost packts: " + lost_packets);
+					System.out.println("Number of missing messages: " + missing);
 		}
 
 	}
