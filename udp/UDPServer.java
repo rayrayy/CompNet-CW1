@@ -66,7 +66,7 @@ public class UDPServer {
 					System.exit(-1);
 		}
 		// TO-DO: On receipt of first message, initialise the receive buffer
-		if ((receivedMessages == null){
+		if (receivedMessages == null){
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[msg.totalMessages];
 		}
@@ -75,7 +75,7 @@ public class UDPServer {
 		receivedMessages[msg.messageNum] = 1;
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
-		if ((msg.messageNum + 1 == receivedMessages.length) {	//when last message is being received
+		if (msg.messageNum + 1 == receivedMessages.length) {	//when last message is being received
 					int lost_packets = 0;
 					for (int i=0; i < totalMessages; i++) {
 						if (receivedMessages[i] != 1) {
