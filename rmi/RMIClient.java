@@ -25,9 +25,22 @@ public class RMIClient {
 		int numMessages = Integer.parseInt(args[1]);
 
 		// TO-DO: Initialise Security Manager
-
+		if (System.getSecurityManager()==null){
+			System.setSecurityManager(new SecurityManager());
+		}
 		// TO-DO: Bind to RMIServer
-
+		try {
+			//gandh99
+			int port =2060;
+			Registry reg = LocateRegistry.getRegistry(args[0]);
+			iRMIServer = (RMIServerI)reg.lookup(urlServer);
+		} catch (MalformedURLException e){
+			System.out.println("Error Malformed Hostname");
+		} catch (RemoteException e){
+			System.out.println("remote exception error");
+		} catch (NotBoundException e){
+			System.out.println("error not bound exception");
+		}
 		// TO-DO: Attempt to send messages the specified number of times
 
 	}
