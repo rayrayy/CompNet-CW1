@@ -17,7 +17,6 @@ public class UDPServer {
 	private DatagramSocket recvSoc;
 	private int totalMessages = -1;
 	private int[] receivedMessages;
-	private boolean close = false;
 
 	private void run() {
 		int				pacSize;
@@ -26,11 +25,11 @@ public class UDPServer {
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		//        Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
-		pacSize = 20;
+		pacSize = 500;
 		pacData = new byte [pacSize];
 		pac = new DatagramPacket(pacData, pacSize);
 
-		while(!close){
+		while(true){
 
 			try{
 				recvSoc.setSoTimeout(30000);
@@ -59,14 +58,14 @@ public class UDPServer {
 
 		// TO-DO: Use the data to construct a new MessageInfo object
 		try{
-					msg = new MessageInfo(data);
+					msg = new MessageInfo(data.trim());
 		}
 		catch (Exception exception){
 					System.out.println("Failed to create MessageInfo! "+ '\n' + "Server is closed.");
 					System.exit(-1);
 		}
 		// TO-DO: On receipt of first message, initialise the receive buffer
-		if (receivedMessages == null){
+		if ((receivedMessages == null) || (msg.totalMessages != totalMessages)){
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[msg.totalMessages];
 		}

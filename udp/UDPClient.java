@@ -57,12 +57,10 @@ public static void main(String[] args) {
 
 	// TO-DO: Send the messages to the server
 		while (tries < countTo){//or <=
-		tries = tries + 1;
-		MessageInfo message = new MessageInfo(countTo, tries);
-		send(message.toString(), serverAddr, recvPort);
-
-
-	}
+			MessageInfo message = new MessageInfo(countTo, tries);
+			send(message.toString(), serverAddr, recvPort);
+			tries = tries + 1;
+		}
 	}
 
 	private void send(String payload, InetAddress destAddr, int destPort) {
