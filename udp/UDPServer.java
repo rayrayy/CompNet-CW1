@@ -25,11 +25,13 @@ public class UDPServer {
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		//        Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
-		pacSize = 500;
-		pacData = new byte [pacSize];
-		pac = new DatagramPacket(pacData, pacSize);
+
 
 		while(true){
+
+			pacSize = 3000;
+			pacData = new byte [pacSize];
+			pac = new DatagramPacket(pacData, pacSize);
 
 			try{
 				recvSoc.setSoTimeout(30000);
@@ -81,6 +83,7 @@ public class UDPServer {
 							missing++;
 						}
 					}
+					System.out.println("Number of received messages: " + receivedMessages.length);
 					System.out.println("Number of missing messages: " + missing);
 		}
 
