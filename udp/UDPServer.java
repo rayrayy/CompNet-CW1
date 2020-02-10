@@ -17,7 +17,7 @@ public class UDPServer {
 	private DatagramSocket recvSoc;
 	private int totalMessages = -1;
 	private int[] receivedMessages;
-	private boolean close = 0;
+	private boolean close = false;
 
 	private void run() {
 		int				pacSize;
