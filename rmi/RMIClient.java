@@ -25,7 +25,7 @@ public class RMIClient {
 			System.exit(-1);
 		}
 
-		String urlServer = new String("rmi://" + "dhg18" + "/RMIServer"); // Replaced args[0] with "dhg18"
+		String urlServer = new String("rmi://RMIServer"); // Replaced args[0] with "dhg18"
 		int numMessages = Integer.parseInt(args[1]);
 
 		// DONE: Initialise Security Manager
@@ -35,12 +35,12 @@ public class RMIClient {
 
 		// DONE: Bind to RMIServer
 		try {
-			int port = 2060;
+			int port = 1099;
 
 			// Connect to remote host by getting registry using specified IP of RMI server and port number
 			Registry registry = LocateRegistry.getRegistry(args[0], port);
 			iRMIServer = (RMIServerI)registry.lookup(urlServer);
-			System.out.println("RMIClient bound and ready");
+			System.out.println("RMIClient ready");
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -52,14 +52,14 @@ public class RMIClient {
 			MessageInfo msg = new MessageInfo(numMessages, i);
 			try {
 				iRMIServer.receiveMessage(msg);
-				System.out.println("Sending message no.: " + i);
+				System.out.println("Message: " + i);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
 
 		// Close client after sending last message
-		System.out.println("Sent last message. Closing RMIClient.");
+		System.out.println("Finished sending messages.");
 	}
 }
  /*
