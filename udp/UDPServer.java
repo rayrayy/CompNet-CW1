@@ -15,7 +15,7 @@ import common.MessageInfo;
 public class UDPServer {
 
 	private DatagramSocket recvSoc;
-	private int totalMessages = -1;
+	private int totalMessages = 0;
 	private int[] receivedMessages;
 
 	private void run() {
@@ -83,8 +83,8 @@ public class UDPServer {
 							missing++;
 						}
 					}
-					System.out.println("Number of received messages: " + (receivedMessages.length-missing));
-					System.out.println("Number of missing messages: " + missing);
+					System.out.println("Received: " + (receivedMessages.length-missing));
+					System.out.println("Missing: " + missing);
 		}
 
 	}

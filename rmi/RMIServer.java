@@ -11,21 +11,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
 
-import common.*;
+import common.MessageInfo;
 
 public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
-	private int totalMessages = -1;
+	private int totalMessages = 0;
 	private int[] receivedMessages;
 
 	public RMIServer() throws RemoteException {
-		super();
 	}
 
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
-		if (receivedMessages == null) { //TODO
+		if ((receivedMessages == null) || (msg.totalMessages != totalMessages)) {
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[msg.totalMessages];
 		}
@@ -42,8 +41,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 							missing++;
 						}
 					}
-					System.out.println("Number of received messages: " + (receivedMessages.length-missing));
-					System.out.println("Number of missing messages: " + missing);
+					System.out.println("Received: " + (receivedMessages.length-missing));
+					System.out.println("Missing:  " + missing);
 		}
 	}
 
@@ -77,12 +76,12 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// Start / find the registry (hint use LocateRegistry.createRegistry(...)
 		// If we *know* the registry is running we could skip this (eg run rmiregistry in the start script)
 		Registry registry = null;
-		int port = 1099;
+		int recvPort = 1099;
 
 		try {
-				registry = LocateRegistry.createRegistry(port);
+				registry = LocateRegistry.createRegistry(recvPort);
 				System.out.println("Created registry");
-		} catch (RemoteException e) {
+		} catch (RemoteException rmt_excp) {
 			System.out.println("Remote Exception!");
 			System.exit(-1);
 		}
@@ -92,7 +91,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// expects different things from the URL field.
 		try{
 			registry.rebind(serverURL, server);
-			System.out.println("RMIServer bound and ready");
+			System.out.println("RMIServer initialized.");
 		}
 		catch(RemoteException rmt_excp){
 			System.out.println("Failed to bind server!");
