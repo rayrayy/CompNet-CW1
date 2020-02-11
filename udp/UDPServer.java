@@ -83,7 +83,7 @@ public class UDPServer {
 							missing++;
 						}
 					}
-					System.out.println("Number of received messages: " + receivedMessages.length);
+					System.out.println("Number of received messages: " + (receivedMessages.length-missing));
 					System.out.println("Number of missing messages: " + missing);
 		}
 
