@@ -45,10 +45,12 @@ public class RMIClient {
       iRMIServer = (RMIServerI)registry.lookup(urlServer);
 
       System.out.println("RMIClient initialised");
-		} catch (RemoteException e) {
-			System.out.println("Remote exception" + e.getMessage());
-		}catch (NotBoundException e) {
-			System.out.println("Not Bound Exception" + e.getMessage());
+		}
+    catch (RemoteException rmt_excp) {
+			System.out.println("Remote exception" + rmt_excp.getMessage());
+		}
+    catch (NotBoundException nb_excp) {
+			System.out.println("Not Bound Exception" + nb_excp.getMessage());
 		}
 
 		// TO-DO: Attempt to send messages the specified number of times
@@ -57,8 +59,9 @@ public class RMIClient {
 			try {
 				iRMIServer.receiveMessage(message);
 				System.out.println("Message: " + i);
-			} catch (RemoteException e) {
-        System.out.println("Remote Exception" + e.getMessage());
+			}
+      catch (RemoteException rmt_excp) {
+        System.out.println("Remote Exception" + rmt_excp.getMessage());
 			}
 		}
 
