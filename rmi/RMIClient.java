@@ -3,15 +3,17 @@
  */
  package rmi;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RMISecurityManager;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
+import java.rmi.NotBoundException;
 import java.rmi.registry.Registry;
+import java.rmi.registry.LocateRegistry;
+
 
 import common.MessageInfo;
+import java.rmi.RMISecurityManager;
+
 
 public class RMIClient {
 
@@ -39,22 +41,24 @@ public class RMIClient {
 
 			// Connect to remote host by getting registry using specified IP of RMI server and port number
 			Registry registry = LocateRegistry.getRegistry(args[0], recvPort);
-			iRMIServer = (RMIServerI)registry.lookup(urlServer);
-			System.out.println("RMIClient initialised");
-		} catch (NotBoundException e) {
-			System.out.println("Not Bound Exception" + e.getMessage());
+
+      iRMIServer = (RMIServerI)registry.lookup(urlServer);
+
+      System.out.println("RMIClient initialised");
 		} catch (RemoteException e) {
 			System.out.println("Remote exception" + e.getMessage());
+		}catch (NotBoundException e) {
+			System.out.println("Not Bound Exception" + e.getMessage());
 		}
 
 		// TO-DO: Attempt to send messages the specified number of times
-		for (int i = 0; i < numMessages; i++) {
-			MessageInfo msg = new MessageInfo(numMessages, i);
+		for (int i = 0; i<numMessages; i++) {
+			MessageInfo message = new MessageInfo(numMessages, i);
 			try {
-				iRMIServer.receiveMessage(msg);
+				iRMIServer.receiveMessage(message);
 				System.out.println("Message: " + i);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+        System.out.println("Remote Exception" + e.getMessage());
 			}
 		}
 
