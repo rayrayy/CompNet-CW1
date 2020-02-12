@@ -42,9 +42,9 @@ public class RMIClient {
 			iRMIServer = (RMIServerI)registry.lookup(urlServer);
 			System.out.println("RMIClient initialised");
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+			System.out.println("Not Bound Exception" + e.getMessage());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			System.out.println("Remote exception" + e.getMessage());
 		}
 
 		// TO-DO: Attempt to send messages the specified number of times
